@@ -2,6 +2,7 @@
 const itemInput = document.querySelector(".form-input");
 const itemList = document.querySelector("#item-list");
 const formBtn = document.querySelector("#item-form");
+const clearBtn = document.querySelector(".btn-clear");
 
 // Event Listeners
 formBtn.addEventListener("submit", (e) => {
@@ -14,15 +15,29 @@ formBtn.addEventListener("submit", (e) => {
   }
 });
 
+itemList.addEventListener("click", (e) => {
+  removeItem(e);
+});
+
+clearBtn.addEventListener("click", () => {
+  itemList.innerHTML = "";
+});
+
 // Functions
 function displayNewItem() {
   itemList.innerHTML += `
-      <li>
-        ${itemInput.value}
-        <button class="remove-item btn-link text-red">
+    <li>
+      ${itemInput.value}
+      <button class="remove-item btn-link text-red">
       <i class="fa-solid fa-xmark"></i>
-        </button>
-      </li>
+      </button>
+    </li>
     `;
   itemInput.value = "";
+}
+
+function removeItem(e) {
+  if (e.target.parentElement.classList.contains("remove-item")) {
+    e.target.parentElement.parentElement.remove();
+  }
 }
